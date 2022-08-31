@@ -1,0 +1,35 @@
+<%- include('../includes/head.ejs') %>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="Little Closet template">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/auth.css">
+</head>
+
+<body>
+    
+   <%- include('../includes/navigation.ejs') %>
+
+    <main>
+        <%if(errorMessage) {%> 
+         <div class="user-message user-message--error"><%=errorMessage%></div>
+        <%}%>
+        <form class="login-form" action="/login" method="POST">
+            <div class="form-control">
+                <label for="email">ایمیل</label>
+                <input class="<%= validationErrors.find(e=>e.param=='email') ? 'invalid':'' %>" type="email" name="email" id="email" value="<%=oldInput.email%>">
+            </div>
+            <div class="form-control">
+                <label for="password">رمز عبور</label>
+                <input class="<%= validationErrors.find(e=>e.param=='password') ? 'invalid':''%>  "type="password" name="password" id="password" value="<%=oldInput.password%>">
+            </div>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button style=" display: inline; margin-left: 250px;" class="btn" type="submit">ورود</button>
+            <a  style=" margin-top: -50px; text-align: left; " href="/signup" class="btn" >ثبت نام</button>
+        </form>
+        <div class="centered">
+            <a  href="/reset">رمز خود را فراموش کرده ام</a>
+        </div>
+    </main>
+<%- include('../includes/end.ejs') %>

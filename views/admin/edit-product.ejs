@@ -1,0 +1,105 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/product.css">
+    <%- include('../includes/navigation.ejs') %>
+
+</head>
+<style>
+    
+#test{
+    
+    position:fixed; 
+  /* top:120px;
+  left:50px;  */
+  width:110%; /* altered */
+  height:90%; 
+  overflow:auto; /* changed to auto */
+     }
+       
+</style>
+
+<body>
+        <div id="test">
+
+
+
+
+            <%if(errorMessage) {
+                var message="";
+                 errorMessage.forEach((item,index)=>{
+                    message='\n'+item.msg;
+                  
+               
+                %> 
+                <div style="position: relative;"  class="user-message user-message--error"><%=message %></div>
+                <br>
+            <%});%>
+            <%}%>
+            <!-- <% if(!typeof serverError=='undefined'){ %>
+                <div style="margin: auto; width:25% ;">
+                <a  href="contact-with-support-team">ارتباط با تیم پشتیبانی</a>
+            </div>
+                <%}%> -->
+                <br>
+        
+            <form style="margin-top:-40px; height:auto;" class="product-form " action="/admin/<% if (editing) { %>edit-product<% } else { %>add-product<% } %>" method="POST" enctype="multipart/form-data">
+                <div class="form-control">
+                    <label style="text-align: right" for="title">نام محصول</label>
+                    <input style="text-align: right" class="<%= errorMessage.find(e=>e.param=='title') ? 'invalid':'' %>"  type="text" name="title" id="title" value="<% if (editing && !hasError) { %><%= product.title %><% }  else if(hasError) { %><%=oldInput.title%><%} %>">
+                </div>
+                <div class="form-control">
+                        <label style="text-align: right" for="number">تعداد</label>
+                        <input style="text-align: right" class="<%= errorMessage.find(e=>e.param=='number') ? 'invalid':'' %>"  type="number" name="number" id="number" step="0.01" value="<% if (editing && !hasError) { %><%= product.number %><% }   else if(hasError) { %><%=oldInput.number%><%} %>">
+                    </div>
+                <div class="form-control">
+                    <label style="text-align: right" for="imageUrl">عکس</label>
+                    <input style="text-align: right" class="<%= errorMessage.find(e=>e.param=='image') ? 'invalid':'' %>" type="file" name="image" id="image" >
+                    <!-- value="<% if (editing && !hasError) { %><%= product.imageUrl %><% }  else if(hasError) { %><%=oldInput.imageUrl%><%} %>"> -->
+                </div>
+                <div class="form-control">
+                        <label style="text-align: right" for="category">نوع محصول</label>
+                <select style="align-items:right " name="category" id="selectbox" data-selected="">
+                        <option value="" selected="selected" disabled="disabled" requierd>نوع محصول را انتخاب کنید</option>
+                        <option value="چای">چای / دمنوش</option>
+                        <option value="ارده">ارده</option>
+                        <option value="شکلات و شیرینی">شکلات / بیسکوئیت</option>
+                        <option value="شامپو">شامپو / شوینده</option>
+                    </select>
+
+                    <label style="text-align: right" for="region">محل تولید</label>
+
+                    <select style="align-items:right " name="region" id="selectbox" data-selected="">
+                            <option value="" selected="selected" disabled="disabled"requierd >محل تولید محصول را انتخاب کنید</option>
+                            <option value="کرمان">کرمان</option>
+                            <option value="اصفهان">اصفهان</option>
+                            <option value="یزد">یزد</option>
+                        </select>
+
+            
+                    
+                <div   class="form-control">
+                    <label style="text-align: right" for="price">قیمت</label>
+                    <input class="<%= errorMessage.find(e=>e.param=='price') ? 'invalid':'' %>"  type="number" name="price" id="price" step="0.01" value="<% if (editing && !hasError) { %><%= product.price %><% }   else if(hasError) { %><%=oldInput.price%><%} %>">
+                </div>
+
+                <div  style="margin-top: -20px"  class="form-control">
+                    <label style="text-align: right" for="description">توصیف محصول</label>
+                    <textarea  style="text-align: right;"
+                    class="<%= errorMessage.find(e => e.param === 'description') ? 'invalid' : '' %>"
+                    name="description"
+                    id="description" 
+                    rows="5"><% if (editing && !hasError) { %><%= product.description %><% } else if(hasError) { %><%=oldInput.description%><%} %>
+                    </textarea>
+                </div>
+                <% if (editing ) { %>
+                    <input type="hidden" value="<%= oldInput.prodId %>" name="productId">
+                <% }%>
+                </br></br></br>
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+             
+            <button style="margin-top: -160px" class="btn" type="submit"><% if (editing) { %>Update Product<% } else { %>ثبت محصول<% } %></button>
+            </form>
+        </div>
+        
+    
+<%- include('../includes/end.ejs') %>

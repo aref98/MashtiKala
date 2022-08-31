@@ -1,0 +1,139 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/cart2.css">
+    
+    <%- include('../includes/navigation.ejs') %>
+
+    </head>
+<style>
+#test{
+    
+    position:fixed; 
+  /* top:120px;
+  left:50px;  */
+  width:110%; /* altered */
+  height:90%; 
+  overflow:auto; /* changed to auto */
+     }
+
+
+</style>
+    <body >
+
+        <div id="test">
+
+<header style="position: relative;" id="site-header">
+    <div class="centered">
+        <h1>سبد خرید (قیمت ها به تومان می باشد) </h1>
+    </div>
+</header>
+
+            <% var totalPrice=0 %>
+            <% var Price=0 %>
+            <% var PricWithTax=0 %>
+            <% var allPrice=0 %>
+
+
+            <% if (products.length > 0) { %>
+                    <% products.forEach(p => { %>
+<div   class="container">
+
+    <section id="cart"> 
+        <article class="product">
+            <header>
+                    <img src="<%= p.productId.imageUrl %>" alt="">
+
+               
+            </header>
+
+            <div class="content">
+
+                <h1><%= p.productId.title %></h1>
+
+                <%= p.productId.description %>
+                <form  action="/cart-delete-item" method="POST">
+                    <input type="hidden" value="<%= p.productId._id %>" name="productId">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <button style="margin-left: 590px; margin-top:-90px;width: 100px;height: 50px; " class="btn danger" type="submit">حذف</button>
+                </form>
+                
+            </div>
+
+            <footer class="content">
+                <span class=""> <form action="/cart-decrease" method="post">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <!-- <div class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
+                        <div><div><img src="/images/cart.svg" class="btn " alt=""><div>+</div></div></div>
+                    </div> -->
+                    <button style="background-color: white; color: #6c757d; margin-top: -5px;  margin-left: 15px; width: 10px;height: 10px;" class="btn" type="submit">-</button>
+                    <input type="hidden" name="productId" value="<%= p.productId._id %>">
+                </form>                   </span>                <span style="margin-top: -23px; margin-left: 31px;" class="qt">  <%= p.quantity %>
+                </span>
+                <span class=""> <form action="/cart" method="post">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <!-- <div class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
+                        <div><div><img src="/images/cart.svg" class="btn " alt=""><div>+</div></div></div>
+                    </div> -->
+                    <button style="background-color: white; color: #6c757d; margin-top: -31px;  margin-right: 100px; width: 10px;height: 10px;" class="btn" type="submit">+</button>
+                    <input type="hidden" name="productId" value="<%= p.productId._id %>">
+                </form>                   </span>
+                <div >
+                <h2 style="margin-top: -30px;" class="full-price">
+                    
+                    <% Price=p.productId.price*p.quantity %>
+                    <%= Price %>
+                </h2>
+
+                <h2 style="margin-top: -30px;"  class="price">
+                    <%= p.productId.price %>
+
+                    
+                </h2>
+            </div>
+            </footer>
+        </article>
+
+       
+
+    </section>
+
+</div>
+<% allPrice+=Price %>
+<%PricWithTax=allPrice*5/100 %>
+<% totalPrice+=PricWithTax+Price %>
+
+<% }) %>
+
+
+<footer style="background-color: darkslategray; width: 100%;display: block;position: relative; " id="site-footer">
+    <div class="container clearfix">
+
+        <div class="right">
+            <h2 class="subtotal">جمع قیمت محصولات: <span><%= allPrice %></span></h2>
+            <h3 class="tax">مالیات (5 درصد): <span><%= PricWithTax %></span></h3>
+            <h3 class="shipping">ارسال: <span>رایگان</span></h3>
+        </div>
+
+        <div class="left">
+
+            <h1 class="total">قیمت نهایی: <span><%= totalPrice %></span></h1>
+            <form action="/finalInfo" method="POST">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <input type="hidden" name="totalPrice" value="<%= totalPrice %>">
+                <button type="submit" class="btn">مشخصات تحویل گیرنده</button>
+            </form>        </div>
+
+    </div>
+
+</div>
+
+
+
+
+<% } else { %>
+    <h1 class="centered">!سبد خرید شما خالی است</h1>
+<% } %>
+    <%- include('../includes/end.ejs') %>
+</body>
+
+</footer>
+

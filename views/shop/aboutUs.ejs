@@ -1,0 +1,126 @@
+<style>
+body
+{
+	margin: 0;
+	height: 100vh;
+	overflow-x: hidden;
+	font-family: "Alegreya Sans SC", 'cursive';
+	-webkit-transform: rotateY(10deg);
+	background: #41B399;
+}
+.main
+{
+	perspective: 1100px;
+}
+.wrap
+{
+	width: 70vw;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	margin: auto 15vw;
+	position: relative;
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	transition: linear 0.2s;
+	transform: rotateY(26deg);
+}
+span
+{
+	position: absolute;
+	font-weight: 900;
+	font-size: 10vw;
+	top: 5vh;
+	width: 100%;
+	text-align: center;
+	color: #FF6E26;
+	-webkit-text-stroke: 2px rgba(0,0,0, 0.1);
+}
+span:first-child
+{
+	color: #fff;
+	-webkit-text-stroke: 0;
+}
+span:last-child
+{
+	color: rgba(0, 0, 0, 0.2);
+	background: rgba(0, 0, 0, 0.2);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	-webkit-text-stroke: 0;
+	-webkit-filter: blur(3px);
+}
+.contentHolder
+{
+	margin: 20px 5vw;
+	background: rgba(0, 0, 0, 0.2);
+	padding: 10px;
+	color: #fff;
+}
+.contentHolder h1::first-letter
+{
+	font-size: 200%;
+	color: #FF6E26;
+}
+
+</style>
+<body>
+	<div class="main">
+		<div class="wrap">
+			<div class="textHolder">
+				<span>CodePen</span>
+			</div>
+			<div class="contentHolder">
+				<h1>About &nbsp; C <i class="fa fa-codepen"></i> d e P e n</h1>
+				<p>CodePen is a playground for the front end side of the web. It's all about inspiration, education, and sharing.</p>
+				<p>Need to build a reduced test case to demonstrate and figure out a bug? CodePen is great for that. Want to show off your latest creation and get feedback from your peers? CodePen is great for that. Want to find examples of a particular design pattern for your project? CodePen is great for that.</p>
+				<p>CodePen PRO takes things further with features like Collab Mode which allows you to pair program in real time and Professor Mode for allowing a group of students to follow you as you teach code and chat with each other.</p>
+			</div>
+		</div>
+	</div>
+
+<script>
+
+
+$(document).ready(function(){
+	var last_child = $(".textHolder").children()[$(".textHolder").children().length-1].outerHTML;
+	$(".contentHolder").css("padding-top", $(".textHolder span").height());
+	function elementPlacing()
+	{
+		font_size = $("span").css("font-size").replace("px","");
+		$(".bg").css("-webkit-transform", "translateY("+font_size/1.06+"px) rotateX(90deg)");
+		var translate_Start = 100;
+		$(".textHolder span").each(function(){
+			if($(this).is( ":last-child" ))
+			{
+				$(this).css("-webkit-transform", "translateZ(0px) scale(1.2)");
+			}
+			else
+				$(this).css("-webkit-transform", "translateZ("+translate_Start+"px)");
+			translate_Start = translate_Start-1;
+		});
+	}
+	for(var i=0; i<30; i++)
+	{
+		$(".textHolder").append(last_child);
+	}
+	elementPlacing();
+	$(document).on("mousemove", function(event)
+	{
+		var window_height = $(this).height();
+		var window_width = $(this).width();
+		var mouseXpos = event.clientX;
+		var mouseYpos = event.clientY;
+		var YrotateDeg = (window_width/2 - mouseXpos) * -0.08;
+		var XrotateDeg = (window_height/1.5 - mouseYpos) * -0.04;
+		$(".wrap").css("transform", "rotateX("+XrotateDeg+"deg) rotateY("+YrotateDeg+"deg)");
+	});
+	$(window).resize(function(){
+		elementPlacing();
+		$(".contentHolder").css("padding-top", $(".textHolder span").height());
+	});
+});
+</script>
+		<%- include('../includes/end.ejs') %>
+
+</body>
