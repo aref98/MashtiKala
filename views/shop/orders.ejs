@@ -1,0 +1,57 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/orders.css">
+    </head>
+<style>
+  #test{
+    
+    position:fixed; 
+  /* top:120px;
+  left:50px;  */
+  width:110%; /* altered */
+  height:90%; 
+  overflow:auto; /* changed to auto */
+     }
+
+
+</style>
+    <body >
+        <%- include('../includes/navigation.ejs') %>
+        <div id="test">
+            <% if (orders.length <= 0) { %>
+                <h1 class="centered">سفارشی موجود نیست!</h1>
+            <% } else { %>
+                <ul class="orders">
+                    <% orders.forEach(order => { %>
+                        <li class="orders__item">
+                            <h1>شناسه سفارش</h1>
+                            <h2># <%= order._id %></h2>
+                            <ul class="orders__products">
+                                <% order.products.forEach(p => { %>
+                                    <li class="orders__products-item"><%= p.productTitle %> (<%= p.quantity %>)</li>
+                                <% }); %>
+                              <h2 style="text-align: center; color: green;"> قیمت کل: <%= order.totalPrice %></h2>
+                              <h3 style="text-align: center;color: indigo;"> تاریخ ثبت سفارش: <%= order.orderDate.date %></h3>
+                              <h3 style="text-align: center;color: indigo;"> ساعت ثبت سفارش: <%= order.orderDate.hour %></h3>
+                              <% if(order.condition=='delivered'){ %>
+
+                                <h3  style="text-align: center; color: rgb(60, 209, 55);"> سفارش شما تحویل داده شد</h3>
+                                  
+                                <h3 style="text-align: center;color: rgba(177, 5, 5, 0.986);"> تاریخ تحویل سفارش: <%= order.deliveryDate.date %></h3>
+                                <h3 style="text-align: center;color: rgba(177, 5, 5, 0.986);"> ساعت تحویل سفارش: <%= order.deliveryDate.hour %></h3>
+
+                                <% }else {%>
+
+
+                                <h3  style="text-align: center; color: red;">  سفارش شما هر روز بین ساعات هشت صبح الی یازده شب تحویل داده میشود</h3>
+                                <a href="/orders/<%= order._id %>">دریافت صورت حساب</a>
+
+                                <% } %>
+
+                            </ul>
+                        </li>
+                         
+                    <% }); %>
+                </ul>
+            <% } %>
+        </div>
+        <%- include('../includes/end.ejs') %>

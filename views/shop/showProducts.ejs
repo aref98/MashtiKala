@@ -1,0 +1,320 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/product.css">
+    <link rel="stylesheet" href="/css/main.css">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="Little Closet template">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+
+	<%- include('../includes/navigation.ejs') %>
+
+	</header>
+<!-- Products -->
+
+<div class="product">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="section_title text-center">محصولات پر طرفدار در مشتی کالا</div>
+            </div>
+        </div>
+        <div class="row page_nav_row">
+            <div class="col">
+                <div class="page_nav">
+                    <ul class="d-flex flex-row align-items-start justify-content-center">
+                        <li class="<%= path === '/همه' ? 'active' : '' %>"><a href="/ShowProducts/?category=همه">همه</a></li>
+                        <li class="<%= path === '/چای' ? 'active' : '' %>"><a href="/ShowProducts/?category=چای">چای و دمنوش</a></li>
+                        <li class="<%= path === '/ارده' ? 'active' : '' %>"><a href="/ShowProducts/?category=ارده">ارده</a></li>
+                        <li class="<%= path === '/شکلات و شیرینی' ? 'active' : '' %>"><a href="/ShowProducts/?category=شکلات و شیرینی">شکلات و شیرینی</a></li>
+                        <li class="<%= path === '/شامپو' ? 'active' : '' %>"><a href="/ShowProducts/?category=شامپو">شامپو و شوینده گیاهی</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+		<div style="    display: grid;
+				grid-column-gap: 1px;
+				grid-template-columns: auto auto auto;
+
+"
+				
+				
+				class="gridContainer">            
+            <!-- Product -->
+            <% for (let product of prods) { %>
+                <div style="display: flex;position: relative;flex-direction: column;" class="wrapper2">
+                    <div class="container2">
+                        <img src="<%= product.imageUrl%>" style="display: flex;position: relative;flex-direction: column;" class="top2"><div class="bottom2">
+                            <div class="left2">
+                                <div class="details2">
+                                    <h4><%= product.title%></h4>
+                                    <p style="  color: white;">&nbsp;&nbsp;&nbsp;<%= product.price%><span style="float: left;">تومان </span></p>
+                                </div>
+                                <div style="background-size: 100%;" class="buy2">  <%- include('../includes/add-to-cart.ejs', {product: product}) %>
+                                </div>
+                            </div>
+                            <div class="right2">
+                                <div class="done2"><i class="material-icons">done</i></div>
+                                <div class="details2">
+                                    <h1><%= product.title%></h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="inside2">
+                        <div class="icon2"><i class="material-icons">توضیحات</i></div>
+                        <div style="font-size: 25px; color: white;" class="contents2">
+                            <%= product.description%>
+                        </div>
+                    </div>
+
+
+                </div>
+                <% }  %>
+
+
+                                
+                                <!-- <div class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
+                                    <div><div><img src="/images/cart.svg" class="svg" alt=""><div>+</div></div></div>
+                                </div> -->
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+<!-- Boxes -->
+<svg height="210" width="500">
+    <line x1="0" y1="0" x2="0" y2="0" style="stroke:rgb(255,0,0);stroke-width:2" />
+</svg> <!-- Boxes -->
+
+<div style="border: 6px solid gray;" class="boxes">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div
+                    class="boxes_container d-flex flex-row align-items-start justify-content-between flex-wrap">
+
+                    <!-- Box -->
+                    <div class="box">
+                        <div class="background_image" style="background-image:url(/images/yazd.jpg)">
+                        </div>
+                        <div
+                            class="box_content d-flex flex-row align-items-center justify-content-start">
+                            <div class="box_left">
+                                <div class="box_image">
+                                    <a href="/ShowProducts/?region=یزد">
+                                        <div class="background_image"
+                                            style="background-image:url(/images/ghotab.jpg)"></div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="box_right text-center">
+                                <div style="font-size: 30px" class="box_title">محصولات استان یزد</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Box -->
+                    <div class="box">
+                        <div class="background_image" style="background-image:url(/images/kerman.jpg)">
+                        </div>
+                        <div
+                            class="box_content d-flex flex-row align-items-center justify-content-start">
+                            <div class="box_left">
+                                <div class="box_image">
+                                    <a href="/ShowProducts/?region=کرمان">
+                                        <div class="background_image"
+                                            style="background-image:url(/images/kolompeh.jpg)"></div>
+
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="box_right text-center">
+                                <div style="font-size: 30px" class="box_title">محصولات کرمان</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Box -->
+                    <div class="box">
+                        <div class="background_image" style="background-image:url(/images/esfehan.jpg)">
+                        </div>
+                        <div
+                            class="box_content d-flex flex-row align-items-center justify-content-start">
+                            <div class="box_left">
+                                <div class="box_image">
+                                    <a href="/ShowProducts/?region=اصفهان">
+                                        <div class="background_image"
+                                            style="background-image:url(/images/gaz.jpg)"></div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="box_right text-center">
+                                <div style="font-size: 30px" class="box_title">محصولات اصفهان</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Features -->
+	<!-- Features -->
+
+    <div class="features">
+        <div class="container">
+            <div class="row">
+
+                <!-- Feature -->
+                <div class="col-lg-4 feature_col">
+                    <div class="feature d-flex flex-row align-items-start justify-content-start">
+                        <div class="feature_left">
+                            <div class="feature_icon"><img src="/images/icon_1.svg" alt=""></div>
+                        </div>
+                        <div
+                            class="feature_right d-flex flex-column align-items-start justify-content-center">
+                            <div style="text-align: right;" class="feature_title">برگشت محصول در صورت عدم رضایت</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature -->
+                <div class="col-lg-4 feature_col">
+                    <div class="feature d-flex flex-row align-items-start justify-content-start">
+                        <div class="feature_left">
+                            <div class="feature_icon ml-auto mr-auto"><img src="/images/icon_2.svg" alt="">
+                            </div>
+                        </div>
+                        <div
+                            class="feature_right d-flex flex-column align-items-start justify-content-center">
+                            <div style="text-align: right;" class="feature_title">محصولات با کیفیت</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature -->
+                <div class="col-lg-4 feature_col">
+                    <div class="feature d-flex flex-row align-items-start justify-content-start">
+                        <div class="feature_left">
+                            <div class="feature_icon"><img src="/images/icon_3.svg" alt=""></div>
+                        </div>
+                        <div
+                            class="feature_right d-flex flex-column align-items-start justify-content-center">
+                            <div class="feature_title">ارسال سریع</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+
+    <footer class="footer">
+        <div class="footer_content">
+            <div class="container">
+                <div class="row">
+
+                    <!-- About -->
+                    <div class="col-lg-4 footer_col">
+                        <div class="footer_about">
+                            <div class="footer_logo">
+                                <a href="#">
+                                    <div class="d-flex flex-row align-items-center justify-content-start">
+                                        <div class="footer_logo_icon"><img src="/images/logo_2.png" alt="">
+                                        </div>
+                                        <div>مشتی کالا</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="footer_about_text">
+                                <p style="text-align: right;">وقتی ارسال رایگان باشه و محصولات با کیفیت و نادر باشن اونوقته که اسم مشتی کالا میاد </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer Links -->
+                    <div class="col-lg-4 footer_col">
+                        <div class="footer_menu">
+                            <div class="footer_title">پشتیبانی</div>
+                            <ul class="footer_list">
+                                <li>
+                                    <a href="#">
+                                        <div>سرویس مشتریان<div style="font-size: 20px;" class="footer_tag_1">به زودی</div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div>قوانین بازگست</div>
+                                    </a>
+                                </li>
+                                
+                                <li>
+                                    <a href="#">
+                                        <div>شرایط و قوانین</div>
+                                    </a>
+                                </li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Footer Contact -->
+                    <div class="col-lg-4 footer_col">
+                        <div class="footer_contact">
+                            <div class="footer_title">با ما در ارتباط باشید</div>
+                            
+                            <div class="footer_social">
+                                <div class="footer_title">شبکه های مجازی</div>
+                                <ul
+                                    class="footer_social_list d-flex flex-row align-items-start justify-content-start">
+                                    <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                    </li>
+                                    <li><a href="#"><i class="fa fa-youtube-play"
+                                                aria-hidden="true"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                                    </li>
+                                    <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer_bar">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div
+                            class="footer_bar_content d-flex flex-md-row flex-column align-items-center justify-content-start">
+                            <div style="margin-left: 340px;" class="copyright order-md-1 order-2 centered">
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;
+                                <script>document.write(new Date().getFullYear());</script> همه ی قوانین محفوظ است 
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+</div>
+<%- include('../includes/end.ejs') %>
+
+</body>
+
+</html>

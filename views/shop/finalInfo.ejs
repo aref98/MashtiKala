@@ -1,0 +1,162 @@
+<%- include('../includes/head.ejs') %>
+
+
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="Little Closet template">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/main.css">
+
+</head>
+
+<body>
+
+
+	<%- include('../includes/navigation.ejs') %>
+
+	</header>
+
+    <style>
+    @import url(https://fonts.googleapis.com/css?family=Merriweather);
+    .test{
+      width: 60%;
+      margin-left: 300px;
+    }
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: 'BNazanin';
+  font-size: 18px;
+
+}
+
+html, body {
+  background: #f1f1f1;
+  font-family: 'Merriweather', sans-serif;
+  padding: 1em;
+  font-family: 'BNazanin';
+
+}
+
+h1 {
+  text-align: center;
+  color: #a8a8a8;
+  text-shadow: 1px 1px 0 white;
+}
+
+form {
+  max-width: 600px;
+  text-align: center;
+  margin: 20px auto;
+}
+form input, form textarea {
+  border: 0;
+  outline: 0;
+  padding: 1em;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  display: block;
+  font-family: 'BNazanin';
+
+  width: 100%;
+  margin-top: 1em;
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  resize: none;
+}
+form input:focus, form textarea:focus {
+  -moz-box-shadow: 0 0px 2px #e74c3c !important;
+  -webkit-box-shadow: 0 0px 2px #e74c3c !important;
+  box-shadow: 0 0px 2px #e74c3c !important;
+}
+form #input-submit {
+  color: white;
+  background: #e74c3c;
+  cursor: pointer;
+}
+form #input-submit:hover {
+  -moz-box-shadow: 0 1px 1px 1px rgba(170, 170, 170, 0.6);
+  -webkit-box-shadow: 0 1px 1px 1px rgba(170, 170, 170, 0.6);
+  box-shadow: 0 1px 1px 1px rgba(170, 170, 170, 0.6);
+}
+form textarea {
+  height: 126px;
+}
+
+.half {
+  float: left;
+  width: 48%;
+  margin-bottom: 1em;
+}
+
+.right {
+  width: 50%;
+}
+
+.left {
+  margin-right: 2%;
+}
+
+@media (max-width: 480px) {
+  .half {
+    width: 100%;
+    float: none;
+    margin-bottom: 0;
+  }
+}
+/* Clearfix */
+.cf:before,
+.cf:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
+}
+
+.cf:after {
+  clear: both;
+}
+
+    </style>
+    </head>
+    
+<br>    
+<br>    
+<br>    
+<br>    
+<br> 
+<div class="test">   
+<h3 style="text-align: center;  font-family: 'BNazanin';
+">ثبت اطلاعات گیرنده</h3>
+<form style="width: 50%;" class="cf" method="post" action="/create-order">
+  <div class="half left cf">
+    <input type="text" style="text-align: right;  font-family: 'BNazanin';
+    " name="name" id="input-name" placeholder="نام و نام خانوادگی">
+    <input type="email" style="text-align: right;  font-family: 'BNazanin';
+    " name="email" id="input-email" placeholder="ایمیل" required pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$">
+    <input type="tel" style="text-align: right;  font-family: 'BNazanin';
+    " name="phoneNumber" id="input-email" placeholder="موبایل" required pattern="^(\+98|0)?9\d{9}$">
+  </div>
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+  <input type="hidden" name="totalPrice" value="<%= totalPrice %>">
+
+
+  <div class="half right cf">
+    <textarea style="text-align: right;  font-family: 'BNazanin';
+    " name="address" type="text" id="input-message" placeholder="آدرس" required></textarea>
+  </div>  
+  <input style="  font-family: 'BNazanin';
+  " type="submit" value="تایید و سفارش" id="input-submit">
+</form>
+</div>
+<%- include('../includes/end.ejs') %>
+
+    </body>
+    </html>
+    
